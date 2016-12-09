@@ -1,45 +1,26 @@
 ﻿@{
     ViewBag.Title = "Home";
 }
+@model List<Kinoman.Models.Post>
+
 
 <section class="row">
-    <article class="post col-md-6">
-        <h2 class="title">Заглавие на пост</h2>
-        <div class="about">
-            Публикувано на <i>1-Jul-2016</i> от <i>Kostadin Kostadinov</i>
-        </div>
-        <div class="body">Post content comes here
-        <p>Текст</p>
-        </div>
-    </article>
-    <article class="post col-md-6">
-        <h2 class="title">Заглавие на пост</h2>
-        <div class="about">
-            Публикувано на <i>1-Jul-2016</i> от <i>Kostadin Kostadinov</i>
-        </div>
-        <div class="body">
-            Post content comes here
-            <p>Текст</p>
-        </div>
-    </article>
-    <article class="post col-md-6">
-        <h2 class="title">Заглавие на пост</h2>
-        <div class="about">
-            Публикувано на <i>1-Jul-2016</i> от <i>Kostadin Kostadinov</i>
-        </div>
-        <div class="body">
-            Post content comes here
-            <p>Текст</p>
-        </div>
-    </article>
-    <article class="post col-md-6">
-        <h2 class="title">Заглавие на пост</h2>
-        <div class="about">
-            Публикувано на <i>1-Jul-2016</i> от <i>Kostadin Kostadinov</i>
-        </div>
-        <div class="body">
-            Post content comes here
-            <p>Текст</p>
-        </div>
-    </article>
+    @foreach (var post in Model)
+    {       
+        <article class="post col-md-6">
+            <h2 class="title">@post.Title</h2>
+            <div class="about">
+                Публикувано 
+                @if (post.Author != null)
+                {
+                   @:от 
+                   <i>@post.Author.FullName (@post.Author.UserName)</i>
+                } 
+                на <i>@post.Date</i>
+            </div>
+            <div class="body">
+               @Html.Raw(post.Body)                
+            </div>
+        </article>
+    }
 </section>

@@ -14,7 +14,7 @@ namespace Kinoman
     {
         protected void Application_Start()
         {
-           // DataBase.SetInitializer(new MigrateDatabaseToLatestVersion<AplicationDbContext, Migrations.Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Migrations.Configuration>());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

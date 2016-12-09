@@ -7,7 +7,7 @@ namespace Kinoman.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<AplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -15,7 +15,7 @@ namespace Kinoman.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(AplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             if (!context.Users.Any())
             {
@@ -100,11 +100,11 @@ namespace Kinoman.Migrations
             }
         }
 
-        private void CreateUser(AplicationDbContext context,
+        private void CreateUser(ApplicationDbContext context,
             string email, string password, string fullName)
         {
-            var userManager = new UserManager<AplicationUser>(
-                new UserStore<AplicationUser>(context));
+            var userManager = new UserManager<ApplicationUser>(
+                new UserStore<ApplicationUser>(context));
             userManager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 1,
@@ -114,7 +114,7 @@ namespace Kinoman.Migrations
                 RequireUppercase = false,
             };
 
-            var user = new AplicationUser
+            var user = new ApplicationUser
             {
                 UserName = email,
                 Email = email,
@@ -128,7 +128,7 @@ namespace Kinoman.Migrations
             }
         }
 
-        private void CreateRole(AplicationDbContext context, string roleName)
+        private void CreateRole(ApplicationDbContext context, string roleName)
         {
             var roleManager = new RoleManager<IdentityRole>(
                 new RoleStore<IdentityRole>(context));
@@ -139,11 +139,11 @@ namespace Kinoman.Migrations
             }
         }
 
-        private void AddUserToRole(AplicationDbContext context, string userName, string roleName)
+        private void AddUserToRole(ApplicationDbContext context, string userName, string roleName)
         {
             var user = context.Users.First(u => u.UserName == userName);
-            var userManager = new UserManager<AplicationUser>(
-                new UserStore<AplicationUser>(context));
+            var userManager = new UserManager<ApplicationUser>(
+                new UserStore<ApplicationUser>(context));
             var addAdminRoleResult = userManager.AddToRole(user.Id, roleName);
             if (!addAdminRoleResult.Succeeded)
             {
@@ -151,7 +151,7 @@ namespace Kinoman.Migrations
             }
         }
 
-        private void CreatePost(AplicationDbContext context,
+        private void CreatePost(ApplicationDbContext context,
             string title, string body, DateTime date, string authorUsername)
         {
             var post = new Post();

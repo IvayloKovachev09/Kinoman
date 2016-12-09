@@ -28,6 +28,6 @@ namespace Kinoman.Models
         [Required]
         public DateTime date { get; set; }
 
-        public AplicationUser Author { get; set; }
+        public ApplicationUser Author { get; set; }
     }
 }
